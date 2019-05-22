@@ -4,7 +4,11 @@ Create a multi channel chat application using the WebSocket server in [codeableo
 
 ## Team
 
-**Add your team members here**
+- Tech lead: Frank Condezo
+- Member 1: Carlos Ayala
+- Member 2: Diego Cuevas
+- Member 3: Christopher Roa
+- Member 4: Deyvi Conde
 
 ## Requirements
 
