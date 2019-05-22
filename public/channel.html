@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Channel</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="img/favicon.png">
+</head>
+
+<body class="layout">
+  <div class="user">
+    <img class="user__image" src="https://dummyimage.com/35X35/ddd/ddd.jpg" alt="name-user">
+    <h4 class="user__name">Diego Cuevas</h4>
+  </div>
+  <div class="channel-header">#general</div>
+  <div class="channels">
+    <ul id="listChannel">
+      <li><a href="#"># general</a></li>
+      <li><a href="#"># varios</a></li>
+      <li><a href="#"># forobardo</a></li>
+      <li><a href="#"># javascript</a></li>
+      <li><a href="#"># cultural</a></li>
+    </ul>
+  </div>
+  <div class="messages" id="listMessage">
+    List messages
+  </div>
+  <div class="create-channel">
+    <p>Create channel</p>
+    <svg class="icon">
+      <use xlink:href="#icon-plus">
+    </svg>
+  </div>
+  <div>
+    <form id="newMessage" class="new-message">
+      <input type="text" name="message" placeholder="Type a Message...">
+      <button type="submit" class="submit">
+        <svg class="icon">
+          <use xlink:href="#icon-send">
+        </svg>
+      </button>
+    </form>
+  </div>
+  <svg class="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </symbol>
+      <symbol id="icon-send" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
+        <line x1="22" y1="2" x2="11" y2="13" />
+        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+      </symbol>
+    </defs>
+  </svg>
+
+</body>
+
+</html>
