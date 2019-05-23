@@ -36,7 +36,7 @@ function initSocket() {
     alert('Connection closed');
   });
 
-  socket.addEventListener('message', (event) => {
+  socket.addEventListener('message', event => {
     messages.push(JSON.parse(event.data));
     renderMessages(messages);
   });
@@ -59,12 +59,53 @@ function sendMessage(content) {
   );
 }
 
-$formNewMessage.addEventListener('submit', (e) => {
+$formNewMessage.addEventListener('submit', e => {
   e.preventDefault();
   const message = e.target.elements.message.value;
   sendMessage(message);
   e.target.elements.message.value = '';
 });
+
+function createChannel(nameChannel) {
+  const channels = JSON.parse(localStorage.getItem('channels')) || [];
+  if (!compareName(channels, nameChannel)) {
+    channels.push(nameChannel);
+    localStorage.setItem('channels', JSON.stringify(channels));
+  } else console.log('The channel already exist!');
+}
+
+function compareName(channels, value) {
+  return channels.find(channel => {
+    return channel == value;
+  });
+}
+
+const modal = document.getElementById('myModal');
+const btn = document.getElementById('create');
+const span = document.getElementsByClassName('close')[0];
+
+btn.onclick = function() {
+  modal.style.display = 'block';
+};
+
+span.onclick = function() {
+  modal.style.display = 'none';
+};
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+};
+
+const $formChannel = document.getElementById('createChnnel');
+$formChannel.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const $name = event.target.elements.name.value;
+  createChannel($name);
+}
 
 test();
 renderChannel();

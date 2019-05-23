@@ -27,7 +27,7 @@
   </div>
   <div class="create-channel">
     <p>Create channel</p>
-    <svg class="icon">
+    <svg class="icon" id="create">
       <use xlink:href="#icon-plus">
     </svg>
   </div>
@@ -55,6 +55,16 @@
       </symbol>
     </defs>
   </svg>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="createChnnel">
+        Channel name:<br />
+        <input type="text" name="name" /><br />
+      </form>
+    </div>
+  </div>
   <script src="js/main.js"></script>
 </body>
 
