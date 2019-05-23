@@ -2,6 +2,7 @@ body {
   margin: 0;
   color: #718096;
   line-height: 1.5;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 /* reset */
@@ -60,6 +61,7 @@ a {
 
 .new-message {
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: space-between;
 }
@@ -67,6 +69,24 @@ a {
 .submit {
   border: 0;
   background: none;
+}
+
+.new-message input {
+  padding: 10px 0;
+  border: none;
+  width: 95%;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.4s;
+}
+
+.new-message .icon {
+  transform: rotate(45deg);
+  color: #4299e1;
+  opacity: 0.4;
+}
+.new-message input:focus ~ .submit .icon {
+  opacity: 1;
 }
 
 /* helpers */
