@@ -2,6 +2,7 @@ const $listChannel = document.getElementById('listChannel');
 const $channelHeader = document.getElementsByClassName('channel-header')[0];
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
+const $username = document.getElementById('user__name')
 const socket = new WebSocket(`ws://localhost:3000/connection`);
 const messages = [
   {
@@ -69,6 +70,10 @@ function test() {
     JSON.stringify(['general', 'cultural', 'games', 'books'])
   );
   localStorage.setItem('messages', JSON.stringify(messages));
+}
+
+function renderUsername(){
+  $username.innerText = currentUser.name;
 }
 
 function renderChannel() {
@@ -204,6 +209,7 @@ test();
 renderChannel();
 initSocket();
 renderMessages(messages);
+renderUsername();
 
 console.log(
   `🚀 If you are reading this, we can use your skills to improve this application. We are a young StartUp company,
