@@ -108,6 +108,7 @@ function initSocket() {
   socket.addEventListener('message', event => {
     messages.push(JSON.parse(event.data));
     localStorage.setItem('messages', JSON.stringify(messages));
+    sendNotification(JSON.parse(event.data));
     renderMessages(messages);
   });
 }
@@ -205,9 +206,26 @@ function handleSubmit(event) {
   const $name = event.target.elements.name.value;
   createChannel($name);
 }
+async function askingNotification() {
+  let status = await Notification.requestPermission();
+  if (Notification.permission !== 'granted') {
+    console.log('notification desactive')
+  }
+}
+
+function sendNotification(data) {
+  console.log(data);
+  if (data.user != currentUser.name || data.channel != currentChannel.channel) {
+    new Notification('New message', {
+      body: data.content,
+      icon: '/img/logo.jpg',
+    });
+  }
+}
 
 test();
 renderChannel();
+askingNotification();
 initSocket();
 renderMessages(messages);
 renderUsername();
