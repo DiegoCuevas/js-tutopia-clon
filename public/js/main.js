@@ -2,7 +2,8 @@ const $listChannel = document.getElementById('listChannel');
 const $channelHeader = document.getElementsByClassName('channel-header')[0];
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
-const $username = document.getElementById('user__name')
+const $username = document.getElementById('user__name');
+
 const socket = new WebSocket(`ws://localhost:3000/connection`);
 const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
@@ -72,7 +73,7 @@ function test() {
   localStorage.setItem('messages', JSON.stringify(messages));
 }
 
-function renderUsername(){
+function renderUsername() {
   $username.innerText = currentUser.name;
 }
 
@@ -205,6 +206,7 @@ function handleSubmit(event) {
   event.preventDefault();
   const $name = event.target.elements.name.value;
   createChannel($name);
+  renderChannel(); //Re-render show new created channel
 }
 async function askingNotification() {
   let status = await Notification.requestPermission();
