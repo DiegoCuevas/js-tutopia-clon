@@ -26,7 +26,6 @@ a {
 
 .layout > div {
   border: 1px solid #e2e8f0;
-  padding: 10px;
 }
 
 .icon {
@@ -57,6 +56,22 @@ a {
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+.channels li {
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+.channels li:hover {
+  background: rgba(17, 34, 51, 0.2);
+}
+
+.channels li.active {
+  background-color: #667eea;
+  color: #fff;
 }
 
 .new-message {
@@ -92,6 +107,10 @@ a {
 /* helpers */
 .shadow {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.p-10 {
+  padding: 10px;
 }
 
 .none {
@@ -136,8 +155,6 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
-
-.listMessage {}
 
 .old-message {
   filter: opacity(50%);

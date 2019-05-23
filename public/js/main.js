@@ -59,11 +59,8 @@ const messages = [
     channel: 'books'
   }
 ];
-
-console.log('🚀');
-console.log(
-  `🚀 If you are reading this, we can use your skills to improve this application. We are a young StartUp company, building apps for fun, thirst of knowledge and profit. Reach us at this very app or through our email: 1337team@gmail.com`
-);
+const currentUser = JSON.parse(localStorage.getItem('user'));
+let currentChannel = 'general';
 
 function test() {
   //  Data to test functions
@@ -77,13 +74,21 @@ function test() {
 function renderChannel() {
   const channels = JSON.parse(localStorage.getItem('channels'));
   $listChannel.innerHTML = channels.reduce((html, channel) => {
-    const htmlElement = `<li onclick = "handleChangeChannel('${channel}')"> # ${channel}</li>`;
+    const htmlElement = `<li 
+      onclick = "handleChangeChannel('${channel}')" 
+      class="${currentChannel == channel ? 'active' : ''}"
+      > 
+        # ${channel}
+      </li>`;
     return html + htmlElement;
   }, '');
 }
 
 function handleChangeChannel(channel) {
-  $channelHeader.innerHTML = channel;
+  currentChannel = channel;
+  $channelHeader.innerHTML = `# ${channel}`;
+  renderMessages(messages, channel);
+  renderChannel();
 }
 
 function initSocket() {
@@ -104,18 +109,20 @@ function initSocket() {
 function renderMessages(messages) {
   // Should this be a global variable?
   const currentTime = Date.now();
-  $listMessage.innerHTML = messages.reduce((html, message) => {
-    return (
-      html +
-      `${
-        renderDate(message.id) < renderDate(currentTime)
-          ? '<li class="old-message">'
-          : '<li>'
-      }<span class="message-header">${renderTime(message)} ${
-        message.user
-      }</span> -  ${message.content}</li>`
-    );
-  }, '');
+  $listMessage.innerHTML = messages
+    .filter(message => message.channel == currentChannel)
+    .reduce((html, message) => {
+      return (
+        html +
+        `${
+          renderDate(message.id) < renderDate(currentTime)
+            ? '<li class="old-message">'
+            : '<li>'
+        }<span class="message-header">${renderTime(message)} ${
+          message.user
+        }</span> -  ${message.content}</li>`
+      );
+    }, '');
 }
 
 function renderTime({ id }) {
@@ -134,12 +141,13 @@ function renderDate(date) {
 }
 
 function sendMessage(content) {
+  console.log(content, currentChannel);
   socket.send(
     JSON.stringify({
       id: new Date().getTime(),
       content: content,
-      user: 'diego',
-      channel: 'general'
+      user: currentUser.username,
+      channel: currentChannel
     })
   );
 }
@@ -196,3 +204,8 @@ test();
 renderChannel();
 initSocket();
 renderMessages(messages);
+
+console.log(
+  `🚀 If you are reading this, we can use your skills to improve this application. We are a young StartUp company,
+  building apps for fun, thirst of knowledge and profit. Reach us at this very app or through our email: 1337team@gmail.com`
+);
