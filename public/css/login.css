@@ -1,0 +1,50 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #cbd5e0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 1.5em;
+  background: #fff;
+  border-radius: 0.5em;
+}
+
+form input {
+  margin: 1.5em 0;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+form input[type='text'] {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+form input[type='submit'] {
+  line-height: 1.5em;
+  background: #13d0ab;
+  border: none;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 600;
+  padding: 0.5em;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  color: rgb(red, green, blue)
+}
+
