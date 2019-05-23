@@ -9,5 +9,15 @@
   "dependencies": {
     "serve-handler": "^6.0.0",
     "ws": "^7.0.0"
-  }
+  },
+  "description": "Create a multi channel chat application using the WebSocket server in [codeableorg/websocket-server](https://github.com/codeableorg/websocket-server) as your WebSocket server.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeableorg/js-tutopia-clon.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/codeableorg/js-tutopia-clon/issues"
+  },
+  "homepage": "https://github.com/codeableorg/js-tutopia-clon#readme"
 }

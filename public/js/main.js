@@ -146,7 +146,7 @@ function sendMessage(content) {
     JSON.stringify({
       id: new Date().getTime(),
       content: content,
-      user: currentUser.username,
+      user: currentUser.name,
       channel: currentChannel
     })
   );
