@@ -4,7 +4,7 @@ const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name')
 const socket = new WebSocket(`ws://localhost:3000/connection`);
-const messages = [
+const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
     id: 1558261595489,
     user: 'diegoC',
@@ -107,6 +107,7 @@ function initSocket() {
 
   socket.addEventListener('message', event => {
     messages.push(JSON.parse(event.data));
+    localStorage.setItem('messages', JSON.stringify(messages));
     renderMessages(messages);
   });
 }
