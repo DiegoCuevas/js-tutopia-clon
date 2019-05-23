@@ -8,7 +8,7 @@ const messages = [];
 console.log('🚀');
 
 function test() {
-  // Data to test functions
+  //  Data to test functions
   localStorage.setItem(
     'channels',
     JSON.stringify(['general', 'cultural', 'games', 'books'])

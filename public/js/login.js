@@ -12,10 +12,11 @@ $form.addEventListener('submit', event => {
   event.preventDefault();
   const username = event.target.elements.username.value;
   const localUser = {
-    usernameKey: username,
-    colorKey: getrgb()
+    name: username,
+    color: getrgb()
   };
   localStorage.setItem('user', JSON.stringify(localUser));
+  localStorage.setItem('channels',JSON.stringify(['general']))
   window.location = 'channel.html';
 });
 
