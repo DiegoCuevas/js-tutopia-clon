@@ -3,9 +3,67 @@ const $channelHeader = document.getElementsByClassName('channel-header')[0];
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const socket = new WebSocket(`ws://localhost:3000/connection`);
-const messages = [];
+const messages = [
+  {
+    id: 1558261595489,
+    user: 'diegoC',
+    content: 'Papito mi rey',
+    channel: 'general'
+  },
+  {
+    id: 1558355195489,
+    user: 'ChristophR',
+    content: 'nuevo canal',
+    channel: 'cultural'
+  },
+  {
+    id: 1558481195489,
+    user: 'diegoC',
+    content: 'El más capo',
+    channel: 'general'
+  },
+  {
+    id: 1558481315489,
+    user: 'deyviC',
+    content: 'Chifita?',
+    channel: 'general'
+  },
+  {
+    id: 1558562359188,
+    user: 'carlosA',
+    content: 'This is a test message',
+    channel: 'general'
+  },
+  {
+    id: 1558562379149,
+    user: 'diegoC',
+    content: 'Noo nooooo',
+    channel: 'general'
+  },
+  {
+    id: 1558562391504,
+    user: 'deyviC',
+    content: 'Siñorsh',
+    channel: 'games'
+  },
+  {
+    id: 1558562556177,
+    user: 'christophR',
+    content: 'Kill Lian',
+    channel: 'games'
+  },
+  {
+    id: 1558562573403,
+    user: 'frankC',
+    content: 'Como abordar el problema',
+    channel: 'books'
+  }
+];
 
 console.log('🚀');
+console.log(
+  `🚀 If you are reading this, we can use your skills to improve this application. We are a young StartUp company, building apps for fun, thirst of knowledge and profit. Reach us at this very app or through our email: 1337team@gmail.com`
+);
 
 function test() {
   //  Data to test functions
@@ -13,6 +71,7 @@ function test() {
     'channels',
     JSON.stringify(['general', 'cultural', 'games', 'books'])
   );
+  localStorage.setItem('messages', JSON.stringify(messages));
 }
 
 function renderChannel() {
@@ -43,9 +102,35 @@ function initSocket() {
 }
 
 function renderMessages(messages) {
+  // Should this be a global variable?
+  const currentTime = Date.now();
   $listMessage.innerHTML = messages.reduce((html, message) => {
-    return html + `<li> ${message.user} -  ${message.content}</li>`;
+    return (
+      html +
+      `${
+        renderDate(message.id) < renderDate(currentTime)
+          ? '<li class="old-message">'
+          : '<li>'
+      }<span class="message-header">${renderTime(message)} ${
+        message.user
+      }</span> -  ${message.content}</li>`
+    );
   }, '');
+}
+
+function renderTime({ id }) {
+  const hours = ('0' + new Date(id).getHours()).slice(-2);
+  const minutes = ('0' + new Date(id).getMinutes()).slice(-2);
+  const seconds = ('0' + new Date(id).getSeconds()).slice(-2);
+  return `${hours}:${minutes}:${seconds}:`;
+}
+
+function renderDate(date) {
+  if (typeof date == 'object') date = date.id;
+  const years = new Date(date).getFullYear();
+  const months = new Date(date).getMonth() + 1;
+  const days = new Date(date).getDate();
+  return `${years}-${months}-${days}`;
 }
 
 function sendMessage(content) {
