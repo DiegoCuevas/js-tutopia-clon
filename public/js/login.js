@@ -16,10 +16,10 @@ $form.addEventListener('submit', event => {
     color: getrgb()
   };
   localStorage.setItem('user', JSON.stringify(localUser));
-  localStorage.setItem('channels',JSON.stringify(['general']))
-  window.location = 'channel.html';
+  localStorage.setItem('channels', JSON.stringify(['general']));
+  window.location = 'index.html';
 });
 
 if (localStorage.getItem('user')) {
-  window.location = 'channel.html';
+  window.location = 'index.html';
 }

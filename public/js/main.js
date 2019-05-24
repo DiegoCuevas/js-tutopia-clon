@@ -238,7 +238,14 @@ function verifyChannel(message) {
   }
 }
 
+function verifyUser() {
+  if (!localStorage.getItem('user')) {
+    window.location = 'login.html';
+  }
+}
+
 // test();
+verifyUser();
 renderChannel();
 askingNotification();
 initSocket();

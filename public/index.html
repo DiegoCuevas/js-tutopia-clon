@@ -1,25 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Tutopia Clon</title>
-    <link rel="stylesheet" href="css/login.css" />
-    <link rel="shortcut icon" href="img/favicon.png" />
-  </head>
 
-  <body>
-    <form id="loginForm">
-      <input
-        type="text"
-        required
-        placeholder="Enter username 👀"
-        name="username"
-        id="username"
-      />
-      <input type="submit" value="Room In" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Channel</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="layout">
+  <div class="user p-10">
+    <img class="user__image" src="https://dummyimage.com/35X35/ddd/ddd.jpg" alt="name-user">
+    <h4 class="user__name" id="user__name">Diego Cuevas</h4>
+  </div>
+  <div class="channel-header p-10"># general</div>
+  <div class="channels">
+    <ul id="listChannel">
+    </ul>
+  </div>
+  <div class="messages p-10">
+    <ul id="listMessage"></ul>
+  </div>
+  <div class="create-channel p-10">
+    <p>Create channel</p>
+    <svg class="icon" id="create">
+      <use xlink:href="#icon-plus">
+    </svg>
+  </div>
+  <div class="p-10">
+    <form id="newMessage" class="new-message">
+      <input type="text" name="message" placeholder="Type a Message...">
+      <button type="submit" class="submit">
+        <svg class="icon">
+          <use xlink:href="#icon-send">
+        </svg>
+      </button>
     </form>
-    <script src="js/login.js"></script>
-  </body>
+  </div>
+  <svg class="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </symbol>
+      <symbol id="icon-send" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
+        <line x1="22" y1="2" x2="11" y2="13" />
+        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="createChnnel">
+        Channel name:<br />
+        <input type="text" name="name" /><br />
+      </form>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+
 </html>
