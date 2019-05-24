@@ -161,6 +161,8 @@ function sendMessage(content) {
   );
 }
 
+
+
 $formNewMessage.addEventListener('submit', e => {
   e.preventDefault();
   const message = e.target.elements.message.value;
@@ -205,11 +207,16 @@ window.onclick = function(event) {
 
 const $formChannel = document.getElementById('createChnnel');
 $formChannel.addEventListener('submit', handleSubmit);
+$inputChannel = document.getElementById('input-new-channel');
 
 function handleSubmit(event) {
   event.preventDefault();
   const $name = event.target.elements.name.value;
   createChannel($name);
+  renderChannel(); //Re-render show new created channel
+  modal.style.display = 'none' //Close window when channel is created
+  handleChangeChannel($name)
+  $inputChannel.value="";
 }
 
 async function askingNotification() {
