@@ -74,6 +74,11 @@ a {
   color: #fff;
 }
 
+.messages {
+  max-height: calc(100vh - 110px);
+  overflow-y: scroll;
+}
+
 .new-message {
   display: flex;
   height: 100%;

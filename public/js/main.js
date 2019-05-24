@@ -3,8 +3,8 @@ const $channelHeader = document.getElementsByClassName('channel-header')[0];
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');
-
-const socket = new WebSocket(`ws://localhost:3000/connection`);
+// const socket = new WebSocket(`ws://${location.hostname}:${location.port}`); for production
+const socket = new WebSocket(`ws://localhost:3000`);
 const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
     id: 1558261595489,
@@ -107,10 +107,12 @@ function initSocket() {
   });
 
   socket.addEventListener('message', event => {
-    messages.push(JSON.parse(event.data));
-    localStorage.setItem('messages', JSON.stringify(messages));
-    sendNotification(JSON.parse(event.data));
+    const newMessage = JSON.parse(event.data);
+    messages.push(newMessage);
+    sendNotification(newMessage);
     renderMessages(messages);
+    verifyChannel(newMessage);
+    localStorage.setItem('messages', JSON.stringify(messages));
   });
 }
 
@@ -149,7 +151,6 @@ function renderDate(date) {
 }
 
 function sendMessage(content) {
-  console.log(content, currentChannel);
   socket.send(
     JSON.stringify({
       id: new Date().getTime(),
@@ -169,10 +170,13 @@ $formNewMessage.addEventListener('submit', e => {
 
 function createChannel(nameChannel) {
   const channels = JSON.parse(localStorage.getItem('channels')) || [];
-  if (!compareName(channels, nameChannel)) {
+  if (!channels.includes(nameChannel)) {
     channels.push(nameChannel);
     localStorage.setItem('channels', JSON.stringify(channels));
-  } else console.log('The channel already exist!');
+    renderChannel();
+  } else {
+    alert('The channel already exist!'); // replace by notification custom
+  }
 }
 
 function compareName(channels, value) {
@@ -206,26 +210,35 @@ function handleSubmit(event) {
   event.preventDefault();
   const $name = event.target.elements.name.value;
   createChannel($name);
-  renderChannel(); //Re-render show new created channel
 }
+
 async function askingNotification() {
   let status = await Notification.requestPermission();
   if (Notification.permission !== 'granted') {
-    console.log('notification desactive')
+    console.log('notification desactive'); // replace by notification custom
   }
 }
 
 function sendNotification(data) {
-  console.log(data);
   if (data.user != currentUser.name || data.channel != currentChannel.channel) {
-    new Notification('New message', {
+    const notification = new Notification(`Message's ${data.user}`, {
       body: data.content,
-      icon: '/img/logo.jpg',
+      icon: '/img/logo.jpg'
     });
+    notification.onclick = event => {
+      notification.close();
+    };
   }
 }
 
-test();
+function verifyChannel(message) {
+  const channels = JSON.parse(localStorage.getItem('channels')) || [];
+  if (!channels.includes(message.channel)) {
+    createChannel(message.channel);
+  }
+}
+
+// test();
 renderChannel();
 askingNotification();
 initSocket();
