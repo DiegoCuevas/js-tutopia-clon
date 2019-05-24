@@ -3,8 +3,7 @@ const $channelHeader = document.getElementsByClassName('channel-header')[0];
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');
-// const socket = new WebSocket(`ws://${location.hostname}:${location.port}`); for production
-const socket = new WebSocket(`ws://localhost:3000`);
+const socket = new WebSocket(socketUrl());
 const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
     id: 1558261595489,
@@ -148,6 +147,12 @@ function renderDate(date) {
   const months = new Date(date).getMonth() + 1;
   const days = new Date(date).getDate();
   return `${years}-${months}-${days}`;
+}
+
+function socketUrl() {
+  return location.hostname == 'localhost'
+    ? 'ws://localhost:3000'
+    : `wss://${location.hostname}:${location.port}`;
 }
 
 function sendMessage(content) {
