@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Online chat for anybody" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Tutopia Clon</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="shortcut icon" href="img/favicon.png" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Tutopia Clon</title>
-  <link rel="stylesheet" href="css/login.css" />
-  <link rel="shortcut icon" href="img/favicon.png" />
-</head>
-
-<body>
-  <form id="loginForm">
-    <input type="text" required placeholder="Enter username 👀" name="username" id="username" />
-    <input type="submit" value="Room In" />
-  </form>
-  <script src="js/login.js"></script>
-</body>
-
+  <body>
+    <form id="loginForm">
+      <h1>Welcome to Tutopia</h1>
+      <label name="username" aria-label="username">
+        <input
+          type="text"
+          required
+          placeholder="Enter username 👀"
+          name="username"
+          id="username"
+      /></label>
+      <input type="submit" value="Room In" aria-label="Room in" />
+    </form>
+    <script src="js/login.js"></script>
+  </body>
 </html>

@@ -74,11 +74,11 @@ function test() {
 }
 
 function renderUsername() {
-  $username.innerText = currentUser.name;
+  $username.innerText = currentUser ? currentUser.name : '';
 }
 
 function renderChannel() {
-  const channels = JSON.parse(localStorage.getItem('channels'));
+  const channels = JSON.parse(localStorage.getItem('channels')) || [];
   $listChannel.innerHTML = channels.reduce((html, channel) => {
     const htmlElement = `<li 
       onclick = "handleChangeChannel('${channel}')" 
@@ -161,8 +161,6 @@ function sendMessage(content) {
   );
 }
 
-
-
 $formNewMessage.addEventListener('submit', e => {
   e.preventDefault();
   const message = e.target.elements.message.value;
@@ -212,8 +210,8 @@ function handleSubmit(event) {
   const $name = event.target.elements.name.value;
   createChannel($name);
   renderChannel(); //Re-render show new created channel
-  handleChangeChannel($name)
-  $inputChannel.value="";
+  handleChangeChannel($name);
+  $inputChannel.value = '';
   modal.close();
 }
 
