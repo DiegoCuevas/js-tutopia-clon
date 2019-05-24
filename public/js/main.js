@@ -177,14 +177,12 @@ function createChannel(nameChannel) {
     localStorage.setItem('channels', JSON.stringify(channels));
     renderChannel();
   } else {
-    alert('The channel already exist!'); // replace by notification custom
+    alert('The channel already exists!'); // replace by notification custom
   }
 }
 
 function compareName(channels, value) {
-  return channels.find(channel => {
-    return channel == value;
-  });
+  return channels.find(channel => channel == value);
 }
 
 const modal = document.getElementById('myModal');
@@ -192,7 +190,7 @@ const btn = document.getElementById('create');
 const span = document.getElementsByClassName('close')[0];
 
 btn.onclick = function() {
-  modal.style.display = 'block';
+  modal.showModal();
 };
 
 span.onclick = function() {
@@ -201,7 +199,7 @@ span.onclick = function() {
 
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = 'none';
+    modal.close();
   }
 };
 
@@ -214,9 +212,9 @@ function handleSubmit(event) {
   const $name = event.target.elements.name.value;
   createChannel($name);
   renderChannel(); //Re-render show new created channel
-  modal.style.display = 'none' //Close window when channel is created
   handleChangeChannel($name)
   $inputChannel.value="";
+  modal.close();
 }
 
 async function askingNotification() {
@@ -230,7 +228,7 @@ function sendNotification(data) {
   if (data.user != currentUser.name || data.channel != currentChannel.channel) {
     const notification = new Notification(`Message's ${data.user}`, {
       body: data.content,
-      icon: '/img/logo.jpg'
+      icon: './img/logo.jpg'
     });
     notification.onclick = event => {
       notification.close();
