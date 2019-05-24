@@ -223,7 +223,7 @@ async function askingNotification() {
 }
 
 function sendNotification(data) {
-  if (data.user != currentUser.name || data.channel != currentChannel.channel) {
+  if (data.user != currentUser.name & data.channel != currentChannel) {
     const notification = new Notification(`Message's ${data.user}`, {
       body: data.content,
       icon: './img/logo.jpg'

@@ -140,12 +140,25 @@ a {
 
 /* Modal Content */
 .modal-content {
-  background-color: #d2d4f0;
+  background-color: #163e4b;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
+  border-radius: 20px;
   width: 80%;
   max-width: 400px;
+  color: #fff;
+}
+.newChannel {
+  margin: 9px auto;
+  display: block;
+  width: 70%;
+  font-size: 1.3em;
+  border: none;
+  padding: 5px;
+}
+.createChannel {
+  border-radius: 20px;
 }
 
 /* The Close Button */
