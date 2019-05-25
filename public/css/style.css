@@ -144,31 +144,6 @@ a {
   right: 10px;
 }
 
-/* helpers */
-.shadow {
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.p-10 {
-  padding: 10px;
-}
-
-.none {
-  height: 0px;
-  width: 0px;
-  display: none;
-}
-
-.no-button {
-  color: inherit;
-  outline: none;
-  text-decoration: underline;
-  background: none;
-  border: none;
-  font-size: inherit;
-  font-family: inherit;
-}
-
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -194,6 +169,7 @@ a {
   max-width: 400px;
   color: #fff;
 }
+
 .newChannel {
   margin: 9px auto;
   display: block;
@@ -202,6 +178,7 @@ a {
   border: none;
   padding: 5px;
 }
+
 .createChannel {
   border-radius: 20px;
 }
@@ -221,6 +198,12 @@ a {
   cursor: pointer;
 }
 
+/* messages */
+.messages {
+  background: #fafafa;
+  color: rgba(0, 0, 0);
+}
+
 .old-message {
   filter: opacity(50%);
 }
@@ -231,6 +214,7 @@ a {
   flex-direction: row;
   justify-content: stretch;
   align-items: center;
+  margin: 15px 0;
 }
 
 .division hr {
@@ -248,12 +232,21 @@ a {
   text-align: center;
 }
 
-.message-header {
+.message__content {
+  background: #fff;
+  padding: 5px 10px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.message__header {
   font-weight: bold;
 }
 
 /* Animation */
-
 .dialog[open] {
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 6px;
@@ -340,7 +333,8 @@ a {
 
 @media screen and (min-width: 1000px) {
   .layout > div {
-    border: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
   }
 }
 
@@ -379,6 +373,10 @@ a {
   .channel-header {
     background-color: #000000;
     color: #fff;
+  }
+
+  .create-message {
+    border-top: 1px solid #e2e8f0;
   }
 
   .sidenav {
@@ -421,4 +419,76 @@ a {
   .sidenav a {
     font-size: 18px;
   }
+}
+
+/* helpers */
+.shadow {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.none {
+  height: 0px;
+  width: 0px;
+  display: none;
+}
+
+.no-button {
+  color: inherit;
+  outline: none;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.fadeInLeft {
+  animation-name: fadeInLeft;
+  animation-duration: 0.75s;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scroll {
+  transition: all 0.3s;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #f2f3f5;
+}
+
+.scroll:hover::-webkit-scrollbar-track {
+  background: rgba(215, 218, 224, 0.3);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(144, 143, 143, 0.8);
+}
+
+::selection {
+  background-color: #79ffe1;
+  color: #000;
 }

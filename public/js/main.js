@@ -1,5 +1,5 @@
 const $listChannel = document.getElementById('listChannel');
-const $channelHeader = document.getElementsByClassName('channel-header')[0];
+const $channelHeader = document.getElementById('nameChannel');
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');
@@ -105,11 +105,11 @@ function initSocket() {
     console.log('Connection open');
     socket.send(
       JSON.stringify({
-      user: currentUser.name,
-      channel: currentChannel,
+        user: currentUser.name,
+        channel: currentChannel
       })
     );
-    sendMessage('He joined the room.')
+    sendMessage('He joined the room.');
   });
 
   socket.addEventListener('close', () => {
@@ -120,16 +120,18 @@ function initSocket() {
   socket.addEventListener('message', event => {
     const newMessage = JSON.parse(event.data);
     if (newMessage.type == 'message') {
-      messages.push(JSON.parse(event.data));
+      renderMessages([...messages, { ...newMessage, new: true }]);
       localStorage.setItem('messages', JSON.stringify(messages));
-      sendNotification(JSON.parse(event.data));
-      renderMessages(messages);
-      localStorage.setItem('messages', JSON.stringify(messages));
-      if(newMessage.content === 'He joined the room.' & currentUser.name != newMessage.user){
-        setTimeout(()=>{
+      if (
+        (newMessage.content === 'He joined the room.') &
+        (currentUser.name != newMessage.user)
+      ) {
+        setTimeout(() => {
           sendMessage('still connected');
-        }, 5000)
+        }, 5000);
       }
+      messages.push(newMessage);
+      sendNotification(newMessage);
     }
     verifyChannel(newMessage);
   });
@@ -191,9 +193,9 @@ function groupBy(array, key) {
 }
 
 function addDivision(data) {
-  return `<li class="division"><hr /><span>${formatDate(
+  return `<div class="division"><hr /><span>${formatDate(
     data
-  )}</span><hr /></li>`;
+  )}</span><hr /></div>`;
 }
 
 function prepareMessages(messages) {
@@ -207,9 +209,16 @@ function prepareMessages(messages) {
           renderDate(message) < renderDate(currentTime)
             ? '<li class="old-message">'
             : '<li>'
-        }<span class="message-header">${renderTime(message)} ${
-          message.user
-        }</span> -  ${message.content}</li>`
+        }
+          <div class="message__content ${message.new ? 'fadeInLeft' : ''}">
+            <span 
+              class="message__header"
+            >
+              ${renderTime(message)} ${message.user}
+            </span>
+            -  ${message.content}
+          </div>
+        </li>`
       );
     }, '');
 }
@@ -280,6 +289,7 @@ function sendChannel(channel) {
 $formNewMessage.addEventListener('submit', e => {
   e.preventDefault();
   const message = e.target.elements.message.value;
+  if (message == '') return;
   sendMessage(message);
   e.target.elements.message.value = '';
 });

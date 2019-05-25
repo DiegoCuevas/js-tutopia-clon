@@ -2,20 +2,25 @@ body {
   min-height: 100vh;
   margin: 0;
   display: flex;
+  background-position: center;
+  background-size: cover;
   align-items: center;
   justify-content: center;
-  background: #cbd5e0;
   font-family: 'Noto Sans', sans-serif;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url('../img/bg.jpg');
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
 }
 
 form {
   display: flex;
   flex-direction: column;
   width: 400px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5),
+    0 10px 10px -5px rgba(0, 0, 0, 0.4);
   padding: 1.5em;
-  background: #fff;
+  background: rgba(22, 22, 22, 0.57);
   border-radius: 0.5em;
 }
 
@@ -57,26 +62,27 @@ label {
 h1 {
   text-align: center;
   margin: 15px;
+  color: #fff;
 }
+
 @media only screen and (max-width: 768px) {
   body {
-    width: auto;
-    height: auto;
-    margin: 40px;
     display: flex;
     align-items: center;
   }
+
   form {
-    width: auto;
-    height: auto;
+    min-width: 340px;
     display: flex;
     justify-content: center;
   }
+
   h1 {
     width: auto;
     height: auto;
-    font-size: 17px;
+    font-size: 22px;
   }
+
   #loginForm {
     width: auto;
     height: auto;
@@ -84,16 +90,24 @@ h1 {
     justify-content: center;
     align-items: center;
   }
+
   label {
     display: flex;
     justify-content: center;
     align-content: center;
     width: 200px;
   }
+
   #username {
     width: 200px;
     display: flex;
     justify-content: center;
     align-content: center;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  form {
+    min-width: inherit;
   }
 }
