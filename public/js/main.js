@@ -4,6 +4,8 @@ const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');
 const socket = new WebSocket(socketUrl());
+const $messageList = document.querySelector('.messages');
+const $notify = document.getElementById('notification');
 const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
     id: 1558261595489,
@@ -103,7 +105,7 @@ function initSocket() {
   });
 
   socket.addEventListener('close', () => {
-    alert('Connection closed');
+    console.log('Connection closed');
   });
 
   socket.addEventListener('message', event => {
@@ -187,6 +189,7 @@ function prepareMessages(messages) {
         }</span> -  ${message.content}</li>`
       );
     }, '');
+  $messageList.scrollTo(0, $messageList.scrollHeight);
 }
 
 function renderMessages(messages) {
@@ -292,17 +295,42 @@ function handleSubmit(event) {
   modal.close();
 }
 
-async function askingNotification() {
-  let status = await Notification.requestPermission();
-  if (Notification.permission !== 'granted') {
-    console.log('notification deactivated');
+function showNotification() {
+  const permission = Notification.permission;
+  if (permission == 'default') {
+    $notify.style.display = 'flex';
+    document.documentElement.style.setProperty(
+      '--height-app',
+      'calc(100vh - 55px)'
+    );
+
+    document
+      .getElementById('close-notification')
+      .addEventListener('click', () => {
+        $notify.style.display = 'none';
+        document.documentElement.style.setProperty('--height-app', '100vh');
+      });
+
+    document
+      .getElementById('ask-notification')
+      .addEventListener('click', async () => {
+        $notify.style.display = 'none';
+        document.documentElement.style.setProperty('--height-app', '100vh');
+        const status = await Notification.requestPermission();
+        if (status == 'granted') {
+          new Notification(`A notification of Utopia`, {
+            body: 'Well, notifications are activated!',
+            icon: './img/logo.jpg'
+          });
+        }
+      });
   }
 }
 
 function sendNotification(data) {
-  if ((data.user != currentUser.name) & (data.channel != currentChannel)) {
-    const notification = new Notification(`Message's ${data.user}`, {
-      body: data.content,
+  if (data.user != currentUser.name && data.channel != currentChannel) {
+    const notification = new Notification(`New message in ${data.channel}`, {
+      body: `${data.user}: ${data.content}`,
       icon: './img/logo.jpg'
     });
     notification.onclick = event => {
@@ -327,7 +355,7 @@ function verifyUser() {
 // test();
 verifyUser();
 renderChannel();
-askingNotification();
+showNotification();
 initSocket();
 renderMessages(messages);
 renderUsername();

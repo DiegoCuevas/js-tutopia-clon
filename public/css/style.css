@@ -1,3 +1,7 @@
+:root {
+  --height-app: calc(100vh);
+}
+
 body {
   margin: 0;
   color: #718096;
@@ -21,7 +25,7 @@ a {
 .layout {
   display: grid;
   grid-template: 60px 1fr 50px/ 20% 80%;
-  height: 100vh;
+  height: var(--height-app);
 }
 
 .layout > div {
@@ -74,9 +78,10 @@ a {
   color: #fff;
 }
 
-.messages {
-  max-height: calc(100vh - 110px);
-  overflow-y: scroll;
+.messages,
+.channels {
+  max-height: calc(var(--height-app) - 110px);
+  overflow-y: auto;
 }
 
 .new-message {
@@ -109,6 +114,24 @@ a {
   opacity: 1;
 }
 
+/* notifications */
+#notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4299e1;
+  color: #fff;
+  height: 55px;
+  font-size: 15px;
+  position: relative;
+  font-weight: 700;
+}
+
+#close-notification {
+  position: absolute;
+  right: 10px;
+}
+
 /* helpers */
 .shadow {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
@@ -122,6 +145,16 @@ a {
   height: 0px;
   width: 0px;
   display: none;
+}
+
+.no-button {
+  color: inherit;
+  outline: none;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .modal {
