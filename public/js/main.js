@@ -289,12 +289,14 @@ function compareName(channels, value) {
 }
 
 const modal = document.getElementById('myModal');
-const btn = document.getElementById('create');
+const $btnCreateChannel = document.querySelectorAll('.btn-create-channel');
 const span = document.getElementsByClassName('close')[0];
 
-btn.onclick = function() {
-  modal.showModal();
-};
+$btnCreateChannel.forEach(element => {
+  element.addEventListener('click', () => {
+    modal.showModal();
+  });
+});
 
 span.onclick = function() {
   modal.close();
@@ -404,3 +406,13 @@ console.log(
   `🚀 If you are reading this, we can use your skills to improve this application. We are a young StartUp company,
   building apps for fun, thirst of knowledge and profit. Reach us at this very app or through our email: 1337team@gmail.com`
 );
+
+//
+function openNav() {
+  document.getElementById('mySidenav').style.width = '250px';
+}
+
+function closeNav() {
+  document.getElementById('mySidenav').style.width = '0';
+}
+//
