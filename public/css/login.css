@@ -58,3 +58,43 @@ h1 {
   text-align: center;
   margin: 15px;
 }
+@media only screen and (max-width: 768px) {
+  body { 
+    width: auto;
+    height: auto;
+    margin: 40px;
+    display: flex;
+    align-items: center;
+  }
+  form {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+  h1{
+    width: auto;
+    height: auto;
+    font-size: 17px;
+  }
+  #loginForm {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  label {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 200px;
+  }
+  #username {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+}
