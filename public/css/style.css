@@ -28,10 +28,6 @@ a {
   height: var(--height-app);
 }
 
-.layout > div {
-  border: 1px solid #e2e8f0;
-}
-
 .icon {
   height: 26px;
   width: 26px;
@@ -317,7 +313,26 @@ a {
   display: none;
 }
 
+.create-responsive {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-decoration: none;
+  margin-bottom: 13px;
+  display: none;
+}
+
+@media screen and (min-width: 1000px) {
+  .layout > div {
+    border: 1px solid #e2e8f0;
+  }
+}
+
 @media screen and (max-width: 1000px) {
+  .create-responsive {
+    display: flex;
+  }
+
   #current-user-container {
     display: none;
   }
@@ -346,17 +361,19 @@ a {
   }
 
   .channel-header {
-    background-color: skyblue;
+    background-color: #000000;
+    color: #fff;
   }
 
   .sidenav {
     height: 100%;
     width: 0;
     position: fixed;
+    color: #fff;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgb(11, 111, 177);
+    background-color: #1d1f21;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -371,9 +388,9 @@ a {
     display: block;
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 10px;
     font-size: 36px;
-    margin-left: 50px;
+    color: #fff;
   }
 }
 

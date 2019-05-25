@@ -22,18 +22,24 @@
       </svg>
     </button>
   </div>
-  
+
   <div class="layout">
     <div class="user p-10">
       <img class="user__image" src="https://dummyimage.com/35X35/ddd/ddd.jpg" alt="name-user">
       <h4 class="user__name" id="user__name">Diego Cuevas</h4>
     </div>
     <div class="channel-header p-10">
-      <span  class="menu" onclick="openNav()">&#9776; </span>
-      <div># general</div>
+      <span class="menu" onclick="openNav()">&#9776; </span>
+      <div id="nameChannel"># general</div>
     </div>
     <div class="channels sidenav" id="mySidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <button class="no-button create-responsive btn-create-channel">
+        Create channel
+        <svg class="icon">
+          <use xlink:href="#icon-plus">
+        </svg>
+      </button>
       <ul id="listChannel">
       </ul>
     </div>
@@ -43,8 +49,7 @@
     <div class="create-channel p-10">
       <p>Create channel</p>
       <!-- Button add channel -->
-
-      <button id="create" class="no-button">
+      <button class="no-button btn-create-channel">
         <svg class="icon">
           <use xlink:href="#icon-plus">
         </svg>

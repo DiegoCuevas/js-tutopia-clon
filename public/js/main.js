@@ -280,12 +280,14 @@ function compareName(channels, value) {
 }
 
 const modal = document.getElementById('myModal');
-const btn = document.getElementById('create');
+const $btnCreateChannel = document.querySelectorAll('.btn-create-channel');
 const span = document.getElementsByClassName('close')[0];
 
-btn.onclick = function() {
-  modal.showModal();
-};
+$btnCreateChannel.forEach(element => {
+  element.addEventListener('click', () => {
+    modal.showModal();
+  });
+});
 
 span.onclick = function() {
   modal.close();
