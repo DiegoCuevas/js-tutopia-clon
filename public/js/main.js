@@ -1,5 +1,5 @@
 const $listChannel = document.getElementById('listChannel');
-const $channelHeader = document.getElementsByClassName('channel-header')[0];
+const $channelHeader = document.getElementById('nameChannel');
 const $formNewMessage = document.getElementById('newMessage');
 const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');

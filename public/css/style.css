@@ -28,14 +28,6 @@ a {
   height: var(--height-app);
 }
 
-<<<<<<< HEAD
-=======
-.layout > div {
-  border-right: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-}
-
->>>>>>> Fixed
 .icon {
   height: 26px;
   width: 26px;
@@ -152,31 +144,6 @@ a {
   right: 10px;
 }
 
-/* helpers */
-.shadow {
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.p-10 {
-  padding: 10px;
-}
-
-.none {
-  height: 0px;
-  width: 0px;
-  display: none;
-}
-
-.no-button {
-  color: inherit;
-  outline: none;
-  text-decoration: underline;
-  background: none;
-  border: none;
-  font-size: inherit;
-  font-family: inherit;
-}
-
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -280,7 +247,6 @@ a {
 }
 
 /* Animation */
-
 .dialog[open] {
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 6px;
@@ -367,7 +333,8 @@ a {
 
 @media screen and (min-width: 1000px) {
   .layout > div {
-    border: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
   }
 }
 
@@ -406,6 +373,10 @@ a {
   .channel-header {
     background-color: #000000;
     color: #fff;
+  }
+
+  .create-message {
+    border-top: 1px solid #e2e8f0;
   }
 
   .sidenav {
@@ -448,9 +419,31 @@ a {
   .sidenav a {
     font-size: 18px;
   }
-::selection {
-  background-color: #79ffe1;
-  color: #000;
+}
+
+/* helpers */
+.shadow {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.none {
+  height: 0px;
+  width: 0px;
+  display: none;
+}
+
+.no-button {
+  color: inherit;
+  outline: none;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .fadeInLeft {
@@ -468,7 +461,6 @@ a {
     transform: translateX(0);
   }
 }
-
 
 .scroll::-webkit-scrollbar {
   width: 6px;
@@ -494,4 +486,9 @@ a {
 
 .scroll:hover::-webkit-scrollbar-thumb {
   background: rgba(144, 143, 143, 0.8);
+}
+
+::selection {
+  background-color: #79ffe1;
+  color: #000;
 }
