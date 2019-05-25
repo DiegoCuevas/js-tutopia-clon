@@ -5,7 +5,8 @@ const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');
 const socket = new WebSocket(socketUrl());
 const $messageList = document.querySelector('.messages');
-const $notify = document.getElementById('notification');
+const $notify = document.getElementById('notifications');
+const $connectNotify = document.getElementById('connection-notification');
 const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
     id: 1558261595489,
@@ -106,6 +107,7 @@ function initSocket() {
 
   socket.addEventListener('close', () => {
     console.log('Connection closed');
+    $connectNotify.style.display = 'flex';
   });
 
   socket.addEventListener('message', event => {
@@ -191,7 +193,6 @@ function prepareMessages(messages) {
         }</span> -  ${message.content}</li>`
       );
     }, '');
-  $messageList.scrollTo(0, $messageList.scrollHeight);
 }
 
 function renderMessages(messages) {
@@ -207,6 +208,7 @@ function renderMessages(messages) {
     html += prepareMessages(filterMessages, curr.length != index + 1);
   });
   $listMessage.innerHTML = html;
+  $messageList.scrollTo(0, $messageList.scrollHeight);
 }
 
 function renderTime({ id }) {
@@ -341,6 +343,11 @@ function showNotification() {
         }
       });
   }
+  $connectNotify.addEventListener('click', async () => {
+    $connectNotify.style.display = 'none';
+    document.documentElement.style.setProperty('--height-app', '100vh');
+    const response = (location.href = '/index.html');
+  });
 }
 
 function sendNotification(data) {
