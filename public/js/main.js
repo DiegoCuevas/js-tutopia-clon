@@ -110,12 +110,14 @@ function initSocket() {
 
   socket.addEventListener('message', event => {
     const newMessage = JSON.parse(event.data);
-    messages.push(JSON.parse(event.data));
-    localStorage.setItem('messages', JSON.stringify(messages));
-    sendNotification(JSON.parse(event.data));
-    renderMessages(messages);
+    if (newMessage.type == 'message') {
+      messages.push(JSON.parse(event.data));
+      localStorage.setItem('messages', JSON.stringify(messages));
+      sendNotification(JSON.parse(event.data));
+      renderMessages(messages);
+      localStorage.setItem('messages', JSON.stringify(messages));
+    }
     verifyChannel(newMessage);
-    localStorage.setItem('messages', JSON.stringify(messages));
   });
 }
 
@@ -236,7 +238,20 @@ function sendMessage(content) {
       id: new Date().getTime(),
       content: content,
       user: currentUser.name,
-      channel: currentChannel
+      channel: currentChannel,
+      type: 'message'
+    })
+  );
+}
+
+function sendChannel(channel) {
+  socket.send(
+    JSON.stringify({
+      id: new Date().getTime(),
+      content: '',
+      user: currentUser.name,
+      channel: channel,
+      type: 'channel'
     })
   );
 }
@@ -253,6 +268,7 @@ function createChannel(nameChannel) {
   if (!channels.includes(nameChannel)) {
     channels.push(nameChannel);
     localStorage.setItem('channels', JSON.stringify(channels));
+    sendChannel(nameChannel);
     renderChannel();
   } else {
     alert('The channel already exists!'); // replace by notification custom
@@ -328,7 +344,11 @@ function showNotification() {
 }
 
 function sendNotification(data) {
-  if (data.user != currentUser.name && data.channel != currentChannel) {
+  if (
+    data.user != currentUser.name &&
+    data.channel != currentChannel &&
+    data.type == 'message'
+  ) {
     const notification = new Notification(`New message in ${data.channel}`, {
       body: `${data.user}: ${data.content}`,
       icon: './img/logo.jpg'
@@ -342,6 +362,12 @@ function sendNotification(data) {
 function verifyChannel(message) {
   const channels = JSON.parse(localStorage.getItem('channels')) || [];
   if (!channels.includes(message.channel)) {
+    if (message.type == 'channel' && !channels.includes(message.channel)) {
+      new Notification(`New channel created`, {
+        body: `${message.user} has created the ${message.channel} channel`,
+        icon: './img/logo.jpg'
+      });
+    }
     createChannel(message.channel);
   }
 }
