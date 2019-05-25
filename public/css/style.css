@@ -303,3 +303,24 @@ a {
     opacity: 0;
   }
 }
+
+@media all and (max-width: 1000px) {
+  #current-user-container {
+    display: none;
+  }
+  #channels-container {
+    display: none;
+  }
+  .create-channel {
+    display: none;
+  }
+  .messages,
+  .channel-header,
+  .create-message {
+    grid-column: 1 / 3;
+  }
+
+  .channel-header {
+    background-color: skyblue;
+  }
+}
