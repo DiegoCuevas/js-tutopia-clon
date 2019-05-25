@@ -22,21 +22,18 @@
       </svg>
     </button>
   </div>
-  <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
-  </div>
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+  
   <div class="layout">
     <div class="user p-10">
       <img class="user__image" src="https://dummyimage.com/35X35/ddd/ddd.jpg" alt="name-user">
       <h4 class="user__name" id="user__name">Diego Cuevas</h4>
     </div>
-    <div class="channel-header p-10"># general</div>
-    <div class="channels">
+    <div class="channel-header p-10">
+      <span  class="menu" onclick="openNav()">&#9776; </span>
+      <div># general</div>
+    </div>
+    <div class="channels sidenav" id="mySidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <ul id="listChannel">
       </ul>
     </div>
@@ -54,7 +51,7 @@
       </button>
 
     </div>
-    <div class="p-10">
+    <div class="p-10 create-message">
       <form id="newMessage" class="new-message">
         <input type="text" name="message" autocomplete="off" placeholder="Type a Message...">
         <button value="send_message " type="submit" class="submit" aria-label="send message">
