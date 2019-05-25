@@ -265,16 +265,30 @@ const btn = document.getElementById('create');
 const span = document.getElementsByClassName('close')[0];
 
 btn.onclick = function() {
-  modal.showModal();
+  try {
+    modal.showModal();
+  } catch(error) {
+    console.log(error);
+    modal.style.display = 'block';
+  }
+
 };
 
 span.onclick = function() {
-  modal.close();
+  try {
+    modal.close();
+  } catch(error) {
+    modal.style.display = 'none';
+  }
 };
 
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.close();
+    try {
+      modal.close();
+    } catch(error) {
+      modal.style.display = 'none';
+    }
   }
 };
 
@@ -289,7 +303,11 @@ function handleSubmit(event) {
   renderChannel(); //Re-render show new created channel
   handleChangeChannel($name);
   $inputChannel.value = '';
-  modal.close();
+  try {
+    modal.close();
+  } catch(error) {
+    modal.style.display = 'none';
+  }
 }
 
 async function askingNotification() {
