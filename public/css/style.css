@@ -111,7 +111,7 @@ a {
 }
 
 /* notifications */
-#notification {
+.notification {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,6 +120,22 @@ a {
   height: 55px;
   font-size: 15px;
   position: relative;
+  font-weight: 700;
+}
+
+.important-notification {
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  background-color: #e92300;
+  top: 70px;
+  height: 30px;
+  border-radius: 5px;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
   font-weight: 700;
 }
 

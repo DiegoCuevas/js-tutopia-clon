@@ -13,16 +13,20 @@
 </head>
 
 <body>
-  <div id="notification" style="display: none">
-    To start <button type="button" class="no-button" id="ask-notification">receiving notifications on your
-      computer</button> you need to give your authorization.
+  <div class="notification" id="notifications" style="display: none">
+    <p>
+    Give <a class="no-button" id="ask-notification">your authorization</a> to receive notifications on your computer.</p>
     <button id="close-notification" class="no-button">
       <svg width="20px" height="20px">
         <use xlink:href="#icon-close">
       </svg>
     </button>
   </div>
-
+<!-- New notification for closed connection -->
+  <div class="important-notification" id="connection-notification" style="display: none">
+    <p>Connection lost. <a class="no-button">Reconnect</a></p>
+  </div>
+<!-- End of New notification for closed connection -->
   <div class="layout">
     <div class="user p-10">
       <img class="user__image" src="https://dummyimage.com/35X35/ddd/ddd.jpg" alt="name-user">

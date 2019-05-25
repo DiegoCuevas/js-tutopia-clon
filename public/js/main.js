@@ -5,7 +5,8 @@ const $listMessage = document.getElementById('listMessage');
 const $username = document.getElementById('user__name');
 const socket = new WebSocket(socketUrl());
 const $messageList = document.querySelector('.messages');
-const $notify = document.getElementById('notification');
+const $notify = document.getElementById('notifications');
+const $connectNotify = document.getElementById('connection-notification');
 const messages = JSON.parse(localStorage.getItem('messages')) || [
   {
     id: 1558261595489,
@@ -106,6 +107,7 @@ function initSocket() {
 
   socket.addEventListener('close', () => {
     console.log('Connection closed');
+    $connectNotify.style.display = 'flex';
   });
 
   socket.addEventListener('message', event => {
@@ -121,15 +123,22 @@ function initSocket() {
   });
 }
 
-function formatDate(date) {
-  const day = new Date(date);
-  const nameDay = new Date(date);
-  const month = new Date(date);
-  if (nameDay === new Date().getDate()) {
+function formatDate(time) {
+  const date = new Date(time);
+  const currentTime = new Date();
+  if (
+    date.getDate() === currentTime.getDate() &&
+    date.getMonth() === currentTime.getMonth() &&
+    date.getFullYear() === currentTime.getFullYear()
+  ) {
     return 'Today';
   }
 
-  if (nameDay === new Date().getDate() - 1) {
+  if (
+    date.getDate() === currentTime.getDate() - 1 &&
+    date.getMonth() === currentTime.getMonth() &&
+    date.getFullYear() === currentTime.getFullYear()
+  ) {
     return 'Yesterday';
   }
 
@@ -157,8 +166,8 @@ function formatDate(date) {
     'December'
   ];
 
-  return `${dayNames[nameDay.getDay()]}, ${day.getDate()} of ${
-    monthNames[month.getMonth()]
+  return `${dayNames[date.getDay()]}, ${date.getDate()} of ${
+    monthNames[date.getMonth()]
   }`;
 }
 
@@ -191,7 +200,6 @@ function prepareMessages(messages) {
         }</span> -  ${message.content}</li>`
       );
     }, '');
-  $messageList.scrollTo(0, $messageList.scrollHeight);
 }
 
 function renderMessages(messages) {
@@ -201,12 +209,13 @@ function renderMessages(messages) {
     const filterMessages = text[key].filter(
       message => message.channel == currentChannel
     );
-    if (curr.length != index + 1 && filterMessages.length > 0) {
+    if (filterMessages.length > 0) {
       html += `${addDivision(key)}</p>`;
     }
-    html += prepareMessages(filterMessages, curr.length != index + 1);
+    html += prepareMessages(filterMessages);
   });
   $listMessage.innerHTML = html;
+  $messageList.scrollTo(0, $messageList.scrollHeight);
 }
 
 function renderTime({ id }) {
@@ -223,7 +232,7 @@ function renderDate(date) {
   const years = time.getFullYear();
   const months = ('0' + (time.getMonth() + 1)).slice(-2);
   const days = ('0' + time.getDate()).slice(-2);
-  return `${years}-${months}-${days}`;
+  return `${months}/${days}/${years}`;
 }
 
 function socketUrl() {
@@ -343,6 +352,11 @@ function showNotification() {
         }
       });
   }
+  $connectNotify.addEventListener('click', async () => {
+    $connectNotify.style.display = 'none';
+    document.documentElement.style.setProperty('--height-app', '100vh');
+    const response = (location.href = '/index.html');
+  });
 }
 
 function sendNotification(data) {
