@@ -60,6 +60,7 @@ const messages = JSON.parse(localStorage.getItem('messages')) || [
     channel: 'books'
   }
 ];
+
 const currentUser = JSON.parse(localStorage.getItem('user'));
 let currentChannel = 'general';
 
@@ -107,24 +108,78 @@ function initSocket() {
 
   socket.addEventListener('message', event => {
     const newMessage = JSON.parse(event.data);
-    messages.push(newMessage);
-    sendNotification(newMessage);
+    messages.push(JSON.parse(event.data));
+    localStorage.setItem('messages', JSON.stringify(messages));
+    sendNotification(JSON.parse(event.data));
     renderMessages(messages);
     verifyChannel(newMessage);
     localStorage.setItem('messages', JSON.stringify(messages));
   });
 }
 
-function renderMessages(messages) {
-  // Should this be a global variable?
+function formatDate(date) {
+  const day = new Date(date);
+  const nameDay = new Date(date);
+  const month = new Date(date);
+  if (nameDay === new Date().getDate()) {
+    return 'Today';
+  }
+
+  if (nameDay === new Date().getDate() - 1) {
+    return 'Yesterday';
+  }
+
+  const dayNames = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  return `${dayNames[nameDay.getDay()]}, ${day.getDate()} of ${
+    monthNames[month.getMonth()]
+  }`;
+}
+
+function groupBy(array, key) {
+  return array.reduce((accum, x) => {
+    (accum[renderDate(x[key])] = accum[renderDate(x[key])] || []).push(x);
+    return accum;
+  }, {});
+}
+
+function addDivision(data) {
+  return `<li class="division"><hr /><span>${formatDate(
+    data
+  )}</span><hr /></li>`;
+}
+
+function prepareMessages(messages) {
   const currentTime = Date.now();
-  $listMessage.innerHTML = messages
+  return messages
     .filter(message => message.channel == currentChannel)
     .reduce((html, message) => {
       return (
         html +
         `${
-          renderDate(message.id) < renderDate(currentTime)
+          renderDate(message) < renderDate(currentTime)
             ? '<li class="old-message">'
             : '<li>'
         }<span class="message-header">${renderTime(message)} ${
@@ -134,18 +189,35 @@ function renderMessages(messages) {
     }, '');
 }
 
+function renderMessages(messages) {
+  let text = groupBy(messages, 'id');
+  let html = '';
+  Object.keys(text).map((key, index, curr) => {
+    const filterMessages = text[key].filter(
+      message => message.channel == currentChannel
+    );
+    if (curr.length != index + 1 && filterMessages.length > 0) {
+      html += `${addDivision(key)}</p>`;
+    }
+    html += prepareMessages(filterMessages, curr.length != index + 1);
+  });
+  $listMessage.innerHTML = html;
+}
+
 function renderTime({ id }) {
-  const hours = ('0' + new Date(id).getHours()).slice(-2);
-  const minutes = ('0' + new Date(id).getMinutes()).slice(-2);
-  const seconds = ('0' + new Date(id).getSeconds()).slice(-2);
+  const time = new Date(id);
+  const hours = ('0' + time.getHours()).slice(-2);
+  const minutes = ('0' + time.getMinutes()).slice(-2);
+  const seconds = ('0' + time.getSeconds()).slice(-2);
   return `${hours}:${minutes}:${seconds}:`;
 }
 
 function renderDate(date) {
   if (typeof date == 'object') date = date.id;
-  const years = new Date(date).getFullYear();
-  const months = new Date(date).getMonth() + 1;
-  const days = new Date(date).getDate();
+  const time = new Date(date);
+  const years = time.getFullYear();
+  const months = ('0' + (time.getMonth() + 1)).slice(-2);
+  const days = ('0' + time.getDate()).slice(-2);
   return `${years}-${months}-${days}`;
 }
 
@@ -223,12 +295,12 @@ function handleSubmit(event) {
 async function askingNotification() {
   let status = await Notification.requestPermission();
   if (Notification.permission !== 'granted') {
-    console.log('notification desactive'); // replace by notification custom
+    console.log('notification deactivated');
   }
 }
 
 function sendNotification(data) {
-  if (data.user != currentUser.name & data.channel != currentChannel) {
+  if ((data.user != currentUser.name) & (data.channel != currentChannel)) {
     const notification = new Notification(`Message's ${data.user}`, {
       body: data.content,
       icon: './img/logo.jpg'
