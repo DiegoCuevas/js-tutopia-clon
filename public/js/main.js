@@ -102,6 +102,14 @@ function handleChangeChannel(channel) {
 function initSocket() {
   socket.addEventListener('open', () => {
     console.log('Connection open');
+    const abc = socket.send(
+      JSON.stringify({
+      user: currentUser.name,
+      channel: currentChannel,
+      })
+    );
+    console.log(abc);
+    sendMessage("User connected")
   });
 
   socket.addEventListener('close', () => {
@@ -116,6 +124,11 @@ function initSocket() {
       sendNotification(JSON.parse(event.data));
       renderMessages(messages);
       localStorage.setItem('messages', JSON.stringify(messages));
+      if(newMessage.content === 'User connected' & currentUser.name != newMessage.user){
+        setTimeout(()=>{
+          sendMessage('still connected');
+        }, 5000)
+      }
     }
     verifyChannel(newMessage);
   });
