@@ -10,7 +10,7 @@ function getrgb() {
 
 $form.addEventListener('submit', event => {
   event.preventDefault();
-  const username = event.target.elements.username.value;
+  const username = htmlEntities(event.target.elements.username.value);
   const localUser = {
     name: username,
     color: getrgb()
@@ -22,4 +22,12 @@ $form.addEventListener('submit', event => {
 
 if (localStorage.getItem('user')) {
   window.location = 'index.html';
+}
+
+function htmlEntities(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }

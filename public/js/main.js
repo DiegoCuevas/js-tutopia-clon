@@ -335,7 +335,7 @@ $inputChannel = document.getElementById('input-new-channel');
 
 function handleSubmit(event) {
   event.preventDefault();
-  const $name = event.target.elements.name.value;
+  const $name = htmlEntities(event.target.elements.name.value);
   createChannel($name);
   renderChannel(); //Re-render show new created channel
   handleChangeChannel($name);
