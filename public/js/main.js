@@ -107,8 +107,8 @@ function initSocket() {
     const newMessage = JSON.parse(event.data);
     if (newMessage.type == 'message') {
       renderMessages([...messages, { ...newMessage, new: true }]);
-      localStorage.setItem('messages', JSON.stringify(messages));
       messages.push(newMessage);
+      localStorage.setItem('messages', JSON.stringify(messages));
       sendNotification(newMessage);
     }
     verifyChannel(newMessage);
@@ -248,11 +248,11 @@ function htmlEntities(str) {
     .replace(/"/g, '&quot;');
 }
 
-function sendMessage(content) {
+function sendMessage(content, isImage = false) {
   socket.send(
     JSON.stringify({
       id: new Date().getTime(),
-      content: htmlEntities(content),
+      content: isImage ? content : htmlEntities(content),
       user: currentUser.name,
       channel: currentChannel,
       type: 'message'
@@ -408,6 +408,23 @@ function openNav() {
 function closeNav() {
   document.getElementById('mySidenav').style.width = '0';
 }
+
+document.getElementById('file').addEventListener('change', async e => {
+  const files = e.target.files;
+  const data = new FormData();
+  data.append('file', files[0]);
+  data.append('upload_preset', 'sickfits');
+
+  const res = await fetch(
+    'https://api.cloudinary.com/v1_1/wesbostutorial/image/upload',
+    {
+      method: 'POST',
+      body: data
+    }
+  );
+  const file = await res.json();
+  sendMessage(`<img src="${file.secure_url}" />`, true);
+});
 
 document.addEventListener('visibilitychange', event => {
   if (document.hidden) {

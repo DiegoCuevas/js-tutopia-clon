@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Channel</title>
+  <title>Tutopia Clon | Chat</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="img/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
@@ -15,18 +15,19 @@
 <body>
   <div class="notification" id="notifications" style="display: none">
     <p>
-    Give <a class="no-button" id="ask-notification">your authorization</a> to receive notifications on your computer.</p>
+      Give <a class="no-button" id="ask-notification">your authorization</a> to receive notifications on your computer.
+    </p>
     <button id="close-notification" class="no-button">
       <svg width="20px" height="20px">
         <use xlink:href="#icon-close">
       </svg>
     </button>
   </div>
-<!-- New notification for closed connection -->
+  <!-- New notification for closed connection -->
   <div class="important-notification" id="connection-notification" style="display: none">
     <p>Connection lost. <a class="no-button">Reconnect</a></p>
   </div>
-<!-- End of New notification for closed connection -->
+  <!-- End of New notification for closed connection -->
   <div class="layout">
     <div class="user p-10">
       <img class="user__image" src="https://dummyimage.com/35X35/ddd/ddd.jpg" alt="name-user">
@@ -62,6 +63,14 @@
     </div>
     <div class="p-10 create-message">
       <form id="newMessage" class="new-message">
+        <input type="file" id="file" name="file" aria-label="image" hidden />
+        <div class="image-upload">
+          <label for="file" class="image-upload ">
+            <svg class="icon">
+              <use xlink:href="#icon-image">
+            </svg>
+          </label>
+        </div>
         <input type="text" name="message" autocomplete="off" placeholder="Type a Message...">
         <button value="send_message " type="submit" class="submit" aria-label="send message">
           <svg class="icon">
@@ -87,6 +96,12 @@
         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
         <line x1="18" y1="6" x2="6" y2="18" />
         <line x1="6" y1="6" x2="18" y2="18" />
+      </symbol>
+      <symbol id="icon-image" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <polyline points="21 15 16 10 5 21" />
       </symbol>
     </defs>
   </svg>

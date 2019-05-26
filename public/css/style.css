@@ -101,11 +101,25 @@ a {
   transition: all 0.4s;
 }
 
-.new-message .icon {
+#file:focus ~ .image-upload,
+#file:active ~ .image-upload {
+  color: #4299e1;
+}
+
+.image-upload {
+  display: flex;
+  cursor: pointer;
+  height: 100%;
+  margin-right: 5px;
+  align-items: center;
+}
+
+.submit .icon {
   transform: rotate(45deg);
   color: #4299e1;
   opacity: 0.4;
 }
+
 .new-message input:focus ~ .submit .icon {
   opacity: 1;
 }
@@ -240,6 +254,11 @@ a {
   margin-top: 10px;
   font-size: 14px;
   display: inline-block;
+}
+
+.message__content img {
+  max-width: 100%;
+  display: block;
 }
 
 .message__header {
@@ -408,7 +427,7 @@ a {
   }
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (max-width: 450px) {
   .sidenav {
     padding-top: 0;
     position: fixed;
