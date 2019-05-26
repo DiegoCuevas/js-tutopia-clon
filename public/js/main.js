@@ -107,8 +107,8 @@ function initSocket() {
     const newMessage = JSON.parse(event.data);
     if (newMessage.type == 'message') {
       renderMessages([...messages, { ...newMessage, new: true }]);
-      localStorage.setItem('messages', JSON.stringify(messages));
       messages.push(newMessage);
+      localStorage.setItem('messages', JSON.stringify(messages));
       sendNotification(newMessage);
     }
     verifyChannel(newMessage);
