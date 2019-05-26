@@ -370,7 +370,7 @@ function showNotification() {
 function sendNotification(data) {
   if (
     data.user != currentUser.name &&
-    (data.channel != currentChannel || visiblePage) &&
+    (data.channel != currentChannel || !visiblePage) &&
     data.type == 'message'
   ) {
     const notification = new Notification(`New message in ${data.channel}`, {
