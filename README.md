@@ -39,3 +39,89 @@ Create a multi channel chat application using the WebSocket server in [codeableo
 - [ ] It must pass with green the Best Practices tests of the Chrome Audits
 - [ ] It must pass with green the SEO tests of the Chrome Audits
 - [ ] The server code should not be modified in any way
+
+## How it works
+
+After downloading the application, prepare the software with:
+```
+npm install
+```
+
+next, execute:
+```
+npm start
+```
+then open your web browser with the following address:
+```
+http://localhost:3000/
+```
+
+Alternately, the application is available in Heroku, through this address:
+
+```
+https://devschat.herokuapp.com/
+```
+
+
+## Model:
+
+Unique model transmitted through the websocket is message which is as follows:
+
+```
+message: {
+  id: <timestamp>,
+  user: <string>,
+  content: <string>,
+  channel: <string>
+}
+```
+
+## Data stored in browser's localStorage:
+
+|   key  |   value   |
+|--------|-----------|
+|`channels`|`["general"]`|
+|`messages`|`[{"id":,"user":"username2","content":"Dummy message","channel":"general"}]`|
+|`user`|`{"name": "username", "color":"rgb(218, 100,129)"}`|
+
+## Views
+
+### Desktop
+
+Login screen
+
+![Desktop login](images/desktop001.png)
+
+Channel screen
+
+![Desktop channel screen](images/desktop002.png)
+
+Creat channel screen
+
+![Desktop Create channel screen](images/desktop003.png)
+
+Lost connection screen
+
+![Desktop Lost connection screen](images/desktop004.png)
+
+### Mobile
+
+Login screen
+
+![Mobile login](images/mobile001.png)
+
+Channel screen
+
+![Mobile channel screen](images/mobile002.png)
+
+Modal screen
+
+![Mobile modal screen](images/mobile003.png)
+
+Create channel screen
+
+![Mobile create channel screen](images/mobile004.png)
+
+Lost connection screen
+
+![Mobile lost connection screen](images/mobile005.png)
