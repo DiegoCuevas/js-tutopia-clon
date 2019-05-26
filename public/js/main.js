@@ -67,15 +67,6 @@ const messages = JSON.parse(localStorage.getItem('messages')) || [
 const currentUser = JSON.parse(localStorage.getItem('user'));
 let currentChannel = 'general';
 
-function test() {
-  //  Data to test functions
-  localStorage.setItem(
-    'channels',
-    JSON.stringify(['general', 'cultural', 'games', 'books'])
-  );
-  localStorage.setItem('messages', JSON.stringify(messages));
-}
-
 function renderUsername() {
   $username.innerText = currentUser ? currentUser.name : '';
 }
@@ -262,11 +253,19 @@ function socketUrl() {
     : `wss://${location.hostname}:${location.port}`;
 }
 
+function htmlEntities(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function sendMessage(content) {
   socket.send(
     JSON.stringify({
       id: new Date().getTime(),
-      content: content,
+      content: htmlEntities(content),
       user: currentUser.name,
       channel: currentChannel,
       type: 'message'
@@ -336,7 +335,7 @@ $inputChannel = document.getElementById('input-new-channel');
 
 function handleSubmit(event) {
   event.preventDefault();
-  const $name = event.target.elements.name.value;
+  const $name = htmlEntities(event.target.elements.name.value);
   createChannel($name);
   renderChannel(); //Re-render show new created channel
   handleChangeChannel($name);
