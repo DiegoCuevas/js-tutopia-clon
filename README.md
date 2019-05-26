@@ -59,7 +59,7 @@ http://localhost:3000/
 Alternately, the application is available in Heroku, through this address:
 
 ```
-https://devschat.herokuapp.com/
+https://tutopiable.herokuapp.com
 ```
 
 
