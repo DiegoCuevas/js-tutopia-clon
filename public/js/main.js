@@ -66,6 +66,7 @@ const messages = JSON.parse(localStorage.getItem('messages')) || [
 
 const currentUser = JSON.parse(localStorage.getItem('user'));
 let currentChannel = 'general';
+let visiblePage = true;
 
 function renderUsername() {
   $username.innerText = currentUser ? currentUser.name : '';
@@ -94,13 +95,7 @@ function handleChangeChannel(channel) {
 function initSocket() {
   socket.addEventListener('open', () => {
     console.log('Connection open');
-    socket.send(
-      JSON.stringify({
-        user: currentUser.name,
-        channel: currentChannel
-      })
-    );
-    sendMessage('He joined the room.');
+    sendMessage('Joined the room.');
   });
 
   socket.addEventListener('close', () => {
@@ -113,14 +108,6 @@ function initSocket() {
     if (newMessage.type == 'message') {
       renderMessages([...messages, { ...newMessage, new: true }]);
       localStorage.setItem('messages', JSON.stringify(messages));
-      if (
-        (newMessage.content === 'He joined the room.') &
-        (currentUser.name != newMessage.user)
-      ) {
-        setTimeout(() => {
-          sendMessage('still connected');
-        }, 5000);
-      }
       messages.push(newMessage);
       sendNotification(newMessage);
     }
@@ -383,7 +370,7 @@ function showNotification() {
 function sendNotification(data) {
   if (
     data.user != currentUser.name &&
-    data.channel != currentChannel &&
+    (data.channel != currentChannel || visiblePage) &&
     data.type == 'message'
   ) {
     const notification = new Notification(`New message in ${data.channel}`, {
@@ -414,8 +401,24 @@ function verifyUser() {
     window.location = 'login.html';
   }
 }
+function openNav() {
+  document.getElementById('mySidenav').style.width = '250px';
+}
 
-// test();
+function closeNav() {
+  document.getElementById('mySidenav').style.width = '0';
+}
+
+document.addEventListener('visibilitychange', event => {
+  if (document.hidden) {
+    visiblePage = false;
+    console.log('Page is not visible');
+  } else {
+    visiblePage = true;
+    console.log('Page is visible');
+  }
+});
+
 verifyUser();
 renderChannel();
 showNotification();
@@ -427,13 +430,3 @@ console.log(
   `🚀 If you are reading this, we can use your skills to improve this application. We are a young StartUp company,
   building apps for fun, thirst of knowledge and profit. Reach us at this very app or through our email: 1337team@gmail.com`
 );
-
-//
-function openNav() {
-  document.getElementById('mySidenav').style.width = '250px';
-}
-
-function closeNav() {
-  document.getElementById('mySidenav').style.width = '0';
-}
-//
