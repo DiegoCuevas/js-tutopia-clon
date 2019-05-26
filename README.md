@@ -67,7 +67,8 @@ https://devschat.herokuapp.com/
 
 Unique model transmitted through the websocket is message which is as follows:
 
-```message: {
+```
+message: {
   id: <timestamp>,
   user: <string>,
   content: <string>,
