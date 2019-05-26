@@ -64,6 +64,7 @@ const messages = JSON.parse(localStorage.getItem('messages')) || [
   }
 ];
 
+const currentTime = Date.now();
 const currentUser = JSON.parse(localStorage.getItem('user'));
 let currentChannel = 'general';
 let visiblePage = true;
@@ -177,14 +178,13 @@ function addDivision(data) {
 }
 
 function prepareMessages(messages) {
-  const currentTime = Date.now();
   return messages
     .filter(message => message.channel == currentChannel)
     .reduce((html, message) => {
       return (
         html +
         `${
-          renderDate(message) < renderDate(currentTime)
+          new Date(message.id) < currentTime
             ? '<li class="old-message">'
             : '<li>'
         }
