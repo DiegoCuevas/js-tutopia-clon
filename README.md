@@ -89,30 +89,39 @@ message: {
 ### Desktop
 
 Login screen
+
 ![Desktop login](images/desktop001.png)
 
 Channel screen
+
 ![Desktop channel screen](images/desktop002.png)
 
 Creat channel screen
+
 ![Desktop Create channel screen](images/desktop003.png)
 
 Lost connection screen
+
 ![Desktop Lost connection screen](images/desktop004.png)
 
 ### Mobile
 
 Login screen
+
 ![Mobile login](images/mobile001.png)
 
 Channel screen
+
 ![Mobile channel screen](images/mobile002.png)
 
 Modal screen
+
 ![Mobile modal screen](images/mobile003.png)
 
 Create channel screen
+
 ![Mobile create channel screen](images/mobile004.png)
 
-Los connection screen
+Lost connection screen
+
 ![Mobile lost connection screen](images/mobile005.png)
